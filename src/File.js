@@ -22,7 +22,7 @@ class File {
    * @param {import('./Message.js').Message[]} data
    */
   static save (data) {
-    fs.writeFileSync('result.json', JSON.stringify(data))
+    fs.writeFileSync('result.json', JSON.stringify(data, null, 2))
     console.log('text saved')
   }
 

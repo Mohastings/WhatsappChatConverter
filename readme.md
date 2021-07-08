@@ -1,6 +1,6 @@
 # whatsapp-to-excel
 
-> Whatsapp chat export to Excel
+> Whatsapp chat export to multiple formats - Excel, CSV and JSON
 
 [![Package Version](https://img.shields.io/npm/v/whatsapp-to-excel.svg?style=flat-square)](https://www.npmjs.com/package/whatsapp-to-excel)
 [![Downloads Status](https://img.shields.io/npm/dm/whatsapp-to-excel.svg?style=flat-square)](https://npm-stat.com/charts.html?package=whatsapp-to-excel&from=2016-04-01)

@@ -5,7 +5,7 @@ export function execute () {
   const file = new File('_chat.txt')
   const whatsapp = new Whatsapp(file)
 
-  File.save(JSON.stringify(whatsapp.messages))
+  File.save(whatsapp.messages)
   File.saveXlsx(whatsapp.messages)
   File.saveCsv(whatsapp.messages)
 
