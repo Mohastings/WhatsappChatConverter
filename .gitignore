@@ -82,5 +82,4 @@ dist
 .dynamodb/
 _chat.txt
 replacement.js
-data.*
-test.txt
+result.*

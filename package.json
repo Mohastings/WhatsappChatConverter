@@ -1,7 +1,7 @@
 {
   "name": "whatsapp-to-excel",
   "version": "0.0.1",
-  "description": "Whatsapp chat export to Excel",
+  "description": "Whatsapp chat export to multiple formats (XLSX, CSV and JSON)",
   "license": "MIT",
   "repository": "https://github.com//whatsapp-to-excel",
   "author": {
@@ -20,8 +20,6 @@
   "type": "module",
   "dependencies": {
     "csv-stringify": "^5.6.2",
-    "dotenv": "^9.0.2",
-    "he": "^1.2.0",
     "json2xls": "^0.1.2"
   },
   "devDependencies": {
@@ -48,5 +46,5 @@
     "sinon-chai": "^3.6.0",
     "tui-jsdoc-template": "^1.2.2"
   },
-  "keywords": []
+  "keywords": ["whatsapp", "excel", "csv", "conversion", "chat"]
 }
