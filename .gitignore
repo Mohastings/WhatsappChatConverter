@@ -81,5 +81,5 @@ dist
 # DynamoDB Local files
 .dynamodb/
 _chat.txt
-replacement.js
+replacement.*
 result.*

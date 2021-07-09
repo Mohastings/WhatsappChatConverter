@@ -21,7 +21,7 @@ class File {
    * Convert the array to JSON and save the file
    * @param {import('./Message.js').Message[]} data
    */
-  static save (data) {
+  static saveJson (data) {
     fs.writeFileSync('result.json', JSON.stringify(data, null, 2))
     console.log('text saved')
   }
@@ -33,7 +33,7 @@ class File {
   static saveXlsx (data) {
     const excelData = data.map(m => {
       const excelDate = m.date.toLocaleString().replace(',', '')
-      return new Message(excelDate, m.person, m.content)
+      return new Message(excelDate, m.contact, m.content)
     })
     const xls = json2xls(excelData)
     fs.writeFileSync('result.xlsx', xls, 'binary')

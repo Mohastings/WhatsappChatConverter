@@ -1,3 +1,5 @@
+import { Format } from './Format.js'
+
 /**
  * Whatsapp message class
  */
@@ -5,10 +7,11 @@ class Message {
   /**
    *
    * @param {date|string} date The message date
-   * @param {string} person The name (or phone number)
+   * @param {string} contact The name (or phone number)
    * @param {string} content The message itself
    */
-  constructor (date, person, content) {
+  constructor (date, contact, content) {
+    const format = new Format()
     /**
      * @type {date|string}
      */
@@ -16,7 +19,7 @@ class Message {
     /**
      * @type {string}
      */
-    this.person = person
+    this.contact = format.cleanContact(contact)
     /**
      * @type {string}
      */
