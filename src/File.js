@@ -1,7 +1,5 @@
 import fs from 'fs'
-import json2xls from 'json2xls'
 import csvStringify from 'csv-stringify'
-import { Message } from './Message.js'
 /**
  * File manipulation class
  */
@@ -27,20 +25,6 @@ class File {
   }
 
   /**
-   * Convert the array to Excel and save the file
-   * @param {import('./Message.js').Message[]} data
-   */
-  static saveXlsx (data) {
-    const excelData = data.map(m => {
-      const excelDate = m.date.toLocaleString().replace(',', '')
-      return new Message(excelDate, m.contact, m.content)
-    })
-    const xls = json2xls(excelData)
-    fs.writeFileSync('result.xlsx', xls, 'binary')
-    console.log('xlsx saved')
-  }
-
-  /**
    * Convert the array to CSV and save the file
    * @param {import('./Message.js').Message[]} data
    */
@@ -51,8 +35,9 @@ class File {
       header: true,
       columns: [
         'date',
-        'person',
+        'contact',
         'content',
+        'chars',
       ],
     }
     csvStringify(data, options, (err, output) => {
