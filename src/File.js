@@ -18,9 +18,10 @@ class File {
   /**
    * Convert the array to JSON and save the file
    * @param {import('./Message.js').Message[]} data
+   * @param {string} name
    */
-  static saveJson (data) {
-    fs.writeFileSync('result.json', JSON.stringify(data, null, 2))
+  static saveJson (data, name) {
+    fs.writeFileSync(name, JSON.stringify(data, null, 2))
     console.log('text saved')
   }
 
@@ -48,6 +49,10 @@ class File {
         console.log('csv saved')
       }
     })
+  }
+
+  saveHtml (data) {
+    let html = '<html>'
   }
 }
 

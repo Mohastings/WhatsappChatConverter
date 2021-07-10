@@ -24,6 +24,7 @@
       "error",
       "always-multiline"
     ],
-    "no-control-regex": 0
+    "no-control-regex": 0,
+    "no-extra-boolean-cast": 0
   }
 }

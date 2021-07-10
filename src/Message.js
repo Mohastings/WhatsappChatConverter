@@ -7,16 +7,23 @@ import GraphemeSplitter from 'grapheme-splitter'
 class Message {
   /**
    *
-   * @param {date|string} date The message date
+   * @param {date} date The message date
    * @param {string} contact The name (or phone number)
    * @param {string} content The message itself
+   * @param {number} chars The number of chars of the message
    */
-  constructor (date, contact, content) {
+  constructor (date, contact, content = null, chars = null) {
     const splitter = new GraphemeSplitter()
     const format = new Format()
 
     /**
-     * @type {date|string}
+     * @type {date}
+     */
+    this.dateChart = new Date(date)
+    this.dateChart.setHours(0, 0, 0, 0)
+
+    /**
+     * @type {date}
      */
     this.date = date.toLocaleString().replace(',', '')
     /**
@@ -26,12 +33,12 @@ class Message {
     /**
      * @type {string}
      */
-    this.content = content
+    // this.content = content
 
     /**
      * @type {number}
      */
-    this.chars = splitter.countGraphemes(content)
+    this.chars = !!chars ? chars : splitter.countGraphemes(content)
   }
 }
 
