@@ -17,8 +17,15 @@ class Whatsapp {
      */
     this.messages = []
 
+    /**
+     * The list of messages formatted for the chart
+     * @type {Object[]}
+     */
+    this.chartData = []
+
     this.#setBaseContent(file)
     this.#setMessages()
+    this.#setMessagesForChart()
   }
 
   /**
@@ -55,12 +62,45 @@ class Whatsapp {
         }
 
         const date = new Date(`${split[3]}/${split[2]}/${split[1]}, ${split[4]}`)
-        const person = split[5]
+        const contact = split[5]
         const content = split[6]
 
-        return new Message(date, person, content)
+        return new Message(date, contact, content)
       })
       .filter(messsage => messsage != null)
+  }
+
+  #setMessagesForChart () {
+    const contacts = {}
+    // const dateMessages =
+    this.messages.forEach(message => {
+      // const date = message.date.toLocaleString()
+      // const splitted = date.split(' ')
+      // const newDate = new Date(message.date.replace(' ', ', ').replace('/', '-'))
+
+      if (!contacts[message.contact + 'Chars']) {
+        contacts[message.contact + 'Chars'] = 0
+        contacts[message.contact + 'Messages'] = 0
+      }
+
+      // return new Message(newDate, message.contact, null, message.chars)
+    })
+
+    this.messages.forEach(message => {
+      if (!this.chartData.find(m => m.date.getTime() === message.dateChart.getTime())) {
+        const data = { date: message.dateChart, ...contacts }
+        data[message.contact + 'Chars'] = message.chars
+        data[message.contact + 'Messages'] = 1
+
+        this.chartData.push(data)
+      } else {
+        const i = this.chartData.findIndex(m => m.date.getTime() === message.dateChart.getTime())
+        this.chartData[i][message.contact + 'Chars'] += message.chars
+        this.chartData[i][message.contact + 'Messages'] += 1
+      }
+    })
+
+    console.log(this.chartData)
   }
 }
 
