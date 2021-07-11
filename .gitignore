@@ -80,7 +80,7 @@ dist
 
 # DynamoDB Local files
 .dynamodb/
+/replacement.json
+/result.*
 _chat.txt
-replacement.*
-result.*
-chart.*
+/chart.*

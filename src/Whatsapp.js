@@ -5,7 +5,7 @@ import { Message } from './Message.js'
 class Whatsapp {
   #content = ''
   #messageRegEx = /(\[\d{2}\/\d{2}\/\d{4},\s\d{2}:\d{2}:\d{2}\])\s/gm
-  #contentSplitRegex = /\[(\d{2})\/(\d{2})\/(\d{4}),\s(\d{2}:\d{2}:\d{2})\]\s(.+?):\s([\s\S]+)/
+  #contentSplitRegex = /\[(\d{2})\/(\d{2})\/(\d{4}),\s(\d{2}):(\d{2}):(\d{2})\]\s(.+?):\s([\s\S]+)/
 
   /**
    * @param {import('./File.js').File} file file The exported file
@@ -35,6 +35,7 @@ class Whatsapp {
   #setBaseContent (file) {
     // Replace all carriage returns by line breaks
     this.#content = file.content.replace(/\r\n/, '\n').replace(/\r/, '\n').split('\n')
+    console.log('Line breaks replaced')
   }
 
   /**
@@ -52,6 +53,7 @@ class Whatsapp {
         this.messages[i - 1] += `\n${message}`
       }
     }
+    console.log('Content array set')
 
     // Replace each entry by the Message instance and remove the null entries
     this.messages = this.messages
@@ -61,46 +63,45 @@ class Whatsapp {
           return null
         }
 
-        const date = new Date(`${split[3]}/${split[2]}/${split[1]}, ${split[4]}`)
-        const contact = split[5]
-        const content = split[6]
+        const date = new Date(Date.UTC(split[3], split[2], split[1], split[4], split[5], split[6]))
+        const contact = split[7]
+        const content = split[8]
 
         return new Message(date, contact, content)
       })
       .filter(messsage => messsage != null)
+
+    console.log('Messages created')
   }
 
   #setMessagesForChart () {
     const contacts = {}
     // const dateMessages =
     this.messages.forEach(message => {
-      // const date = message.date.toLocaleString()
-      // const splitted = date.split(' ')
-      // const newDate = new Date(message.date.replace(' ', ', ').replace('/', '-'))
-
-      if (!contacts[message.contact + 'Chars']) {
-        contacts[message.contact + 'Chars'] = 0
-        contacts[message.contact + 'Messages'] = 0
+      const contact = message.contact.replace(/\s/g, '.') + '.'
+      if (!contacts[contact + '.Chars']) {
+        contacts[contact + 'Chars'] = 0
+        contacts[contact + 'Messages'] = 0
       }
-
-      // return new Message(newDate, message.contact, null, message.chars)
     })
+    console.log('Chart contacts crated')
 
     this.messages.forEach(message => {
+      const contact = message.contact.replace(/\s/g, '.') + '.'
       if (!this.chartData.find(m => m.date.getTime() === message.dateChart.getTime())) {
         const data = { date: message.dateChart, ...contacts }
-        data[message.contact + 'Chars'] = message.chars
-        data[message.contact + 'Messages'] = 1
+        data[contact + 'Chars'] = message.chars
+        data[contact + 'Messages'] = 1
 
         this.chartData.push(data)
       } else {
         const i = this.chartData.findIndex(m => m.date.getTime() === message.dateChart.getTime())
-        this.chartData[i][message.contact + 'Chars'] += message.chars
-        this.chartData[i][message.contact + 'Messages'] += 1
+        this.chartData[i][contact + 'Chars'] += message.chars
+        this.chartData[i][contact + 'Messages'] += 1
       }
     })
 
-    console.log(this.chartData)
+    console.log('Chart data crated')
   }
 }
 

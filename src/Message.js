@@ -23,7 +23,7 @@ class Message {
     this.dateChart.setHours(0, 0, 0, 0)
 
     /**
-     * @type {date}
+     * @type {string}
      */
     this.date = date.toLocaleString().replace(',', '')
     /**
