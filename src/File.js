@@ -13,6 +13,7 @@ class File {
      * @type string
      */
     this.content = fs.readFileSync(filePath).toString()
+    console.log(`${filePath} loaded`)
   }
 
   /**
@@ -22,14 +23,15 @@ class File {
    */
   static saveJson (data, name) {
     fs.writeFileSync(name, JSON.stringify(data, null, 2))
-    console.log('text saved')
+    console.log(`${name} saved`)
   }
 
   /**
    * Convert the array to CSV and save the file
    * @param {import('./Message.js').Message[]} data
+   * @returns {Promise<true|Error>}
    */
-  static saveCsv (data) {
+  static async saveCsv (data) {
     const options = {
       delimiter: ',',
       quoted: true,
@@ -41,18 +43,19 @@ class File {
         'chars',
       ],
     }
-    csvStringify(data, options, (err, output) => {
-      if (err) {
-        console.log(err)
-      } else {
-        fs.writeFileSync('result.csv', output)
-        console.log('csv saved')
-      }
-    })
-  }
 
-  saveHtml (data) {
-    let html = '<html>'
+    return new Promise((resolve, reject) => {
+      csvStringify(data, options, (err, output) => {
+        if (err) {
+          console.log(err)
+          reject(err)
+        } else {
+          fs.writeFileSync('result.csv', output)
+          console.log('result.csv saved')
+          resolve(true)
+        }
+      })
+    })
   }
 }
 
