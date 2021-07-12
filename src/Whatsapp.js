@@ -78,8 +78,8 @@ class Whatsapp {
     const contacts = {}
     // const dateMessages =
     this.messages.forEach(message => {
-      const contact = message.contact.replace(/\s/g, '.') + '.'
-      if (!contacts[contact + '.Chars']) {
+      const contact = message.contact.replace(/\s/g, '_') + '_'
+      if (!contacts[contact + '_Chars']) {
         contacts[contact + 'Chars'] = 0
         contacts[contact + 'Messages'] = 0
       }
@@ -87,7 +87,7 @@ class Whatsapp {
     console.log('Chart contacts crated')
 
     this.messages.forEach(message => {
-      const contact = message.contact.replace(/\s/g, '.') + '.'
+      const contact = message.contact.replace(/\s/g, '_') + '_'
       if (!this.chartData.find(m => m.date.getTime() === message.dateChart.getTime())) {
         const data = { date: message.dateChart, ...contacts }
         data[contact + 'Chars'] = message.chars

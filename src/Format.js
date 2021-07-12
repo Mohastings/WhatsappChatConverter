@@ -25,7 +25,22 @@ class Format {
       const replaced = replacement[0].replacement
       return replaced
     }
-    return contact
+    const clean = this.#finalCleanup(contact)
+    return clean
+  }
+
+  #finalCleanup (contact) {
+    const clean = contact
+      .replace(/,/g, '')
+      .replace(/\./g, '')
+    return clean
+  }
+
+  static plural (count, text, displayNumber = true, irregularPlural = null) {
+    let plural = irregularPlural === null ? `${text}s` : irregularPlural
+    plural = count === 1 ? text : plural
+
+    return `${displayNumber ? `${count} ` : ''}${plural}`
   }
 }
 

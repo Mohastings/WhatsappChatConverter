@@ -20,29 +20,33 @@
       // Themes end
 
       // Create chart instance
-      var chart = am4core.create("chartdiv", am4charts.XYChart);
+      const chart = am4core.create("chartdiv", am4charts.XYChart);
 
       // Add data
-      chart.data = JSON_FILE_GOES_HERE
+      chart.data = CHART_DATA
 
       // Create axes
-      var dateAxis = chart.xAxes.push(new am4charts.DateAxis());
+      const dateAxis = chart.xAxes.push(new am4charts.DateAxis());
       dateAxis.renderer.minGridDistance = 50;
 
-      var valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
-
-      // Create series
-
+      const valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
 
       // Add scrollbar
       chart.scrollbarX = new am4charts.XYChartScrollbar();
-      chart.scrollbarX.series.push(series);
 
       // Add cursor
       chart.cursor = new am4charts.XYCursor();
       chart.cursor.xAxis = dateAxis;
-      chart.cursor.snapToSeries = series;
-    }); // end am4core.ready()
+
+      // Add legend
+      chart.legend = new am4charts.Legend();
+      chart.legend.position = "right";
+      chart.legend.scrollable = true;
+
+      // Create series
+      CHART_SERIES
+
+    });
   </script>
 </head>
 

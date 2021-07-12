@@ -26,6 +26,11 @@ class File {
     console.log(`${name} saved`)
   }
 
+  static saveHtml (html, name) {
+    fs.writeFileSync(name, html)
+    console.log(`${name} saved`)
+  }
+
   /**
    * Convert the array to CSV and save the file
    * @param {import('./Message.js').Message[]} data
