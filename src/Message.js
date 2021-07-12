@@ -33,7 +33,7 @@ class Message {
     /**
      * @type {string}
      */
-    // this.content = content
+    this.content = content
 
     /**
      * @type {number}

@@ -1,14 +1,57 @@
 import fs from 'fs'
 
 class Chart {
-  static generateHtml (chartData) {
-    const chartDataRegEx = /JSON_FILE_GOES_HERE/g
-    const html = fs.readFileSync('./src/chart-base.html').toString()
+  #chartData = null
+  constructor (chartData) {
+    this.html = fs.readFileSync('./src/chart-base.html').toString()
+    this.#chartData = chartData
+    this.#addChartData()
+    this.#addSeries()
+    console.log('Chart html created')
+  }
 
-    const updatedHtml = html.replace(chartDataRegEx, JSON.stringify(chartData))
+  /**
+   * Replace CHART_DATA for the data on the final HTML
+   */
+  #addChartData () {
+    const chartDataRegEx = /CHART_DATA/g
 
-    fs.writeFileSync('chart.html', updatedHtml)
-    console.log('save or respond?')
+    this.html = this.html.replace(chartDataRegEx, JSON.stringify(this.#chartData))
+  }
+
+  /**
+   * Replace CHART_SERIES by all the needed series on the final HTML
+   */
+  #addSeries () {
+    const seriesRegEx = /CHART_SERIES/
+    const messagesRegEx = /(.+?)_Messages$/g
+    let series = ''
+    const items = this.#chartData[0]
+    for (const key in items) {
+      const messagesExec = messagesRegEx.exec(key)
+
+      if (key !== 'date' && messagesExec) {
+        const charsKey = messagesExec[1] + '_Chars'
+        const name = messagesExec[1].replace(/_/g, ' ')
+        const s = `series${key}`
+        series += `const ${s} = chart.series.push(new am4charts.LineSeries());
+      ${s}.dataFields.valueY = "${key}";
+      ${s}.dataFields.dateX = "date";
+      ${s}.strokeWidth = 2;
+      ${s}.minBulletDistance = 10;
+      ${s}.tooltipText = "${name}: {valueY} msgs, {${charsKey}} chars";
+      ${s}.tooltip.pointerOrientation = "vertical";
+      ${s}.tooltip.background.cornerRadius = 20;
+      ${s}.tooltip.background.fillOpacity = 0.5;
+      ${s}.tooltip.label.padding(12, 12, 12, 12);
+      ${s}.name = "${name}";
+      chart.scrollbarX.series.push(${s});
+
+      `
+      }
+    }
+
+    this.html = this.html.replace(seriesRegEx, series)
   }
 }
 
