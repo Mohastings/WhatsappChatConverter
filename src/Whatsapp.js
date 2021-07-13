@@ -1,3 +1,4 @@
+import { Format } from './Format.js'
 import { Message } from './Message.js'
 /**
  * Whatsapp messages manipulation class
@@ -6,6 +7,7 @@ class Whatsapp {
   #content = ''
   #messageRegEx = /(\[\d{2}\/\d{2}\/\d{4},\s\d{2}:\d{2}:\d{2}\])\s/gm
   #contentSplitRegex = /\[(\d{2})\/(\d{2})\/(\d{4}),\s(\d{2}):(\d{2}):(\d{2})\]\s(.+?):\s([\s\S]+)/
+  #contacts = {}
 
   /**
    * @param {import('./File.js').File} file file The exported file
@@ -18,14 +20,22 @@ class Whatsapp {
     this.messages = []
 
     /**
-     * The list of messages formatted for the chart
+     * The list of messages formatted for the chart (daily messages)
      * @type {Object[]}
      */
-    this.chartData = []
+    this.chartDataByDay = []
+
+    /**
+     * The list of messages formatted for the chart (monthly messages)
+     * @type {Object[]}
+     */
+    this.chartDataByMonth = []
 
     this.#setBaseContent(file)
     this.#setMessages()
-    this.#setMessagesForChart()
+    this.#setChartContacts()
+    this.#setMessagesForChartByDay()
+    this.#setMessagesForChartByMonth()
   }
 
   /**
@@ -55,6 +65,8 @@ class Whatsapp {
     }
     console.log('Content array set')
 
+    const format = new Format()
+
     // Replace each entry by the Message instance and remove the null entries
     this.messages = this.messages
       .map(m => {
@@ -63,8 +75,8 @@ class Whatsapp {
           return null
         }
 
-        const date = new Date(Date.UTC(split[3], split[2], split[1], split[4], split[5], split[6]))
-        const contact = split[7]
+        const date = new Date(Date.UTC(split[3], split[2], split[1], split[4], split[5], split[6])).toLocaleString().replace(',', '')
+        const contact = format.replaceContact(format.cleanContact(split[7]))
         const content = split[8]
 
         return new Message(date, contact, content)
@@ -74,34 +86,82 @@ class Whatsapp {
     console.log('Messages created')
   }
 
-  #setMessagesForChart () {
-    const contacts = {}
-    // const dateMessages =
+  /**
+   * Create the contacts list for the charts
+   */
+  #setChartContacts () {
+    if (this.messages.length === 0) {
+      console.log('#setMessages must be executed before #setChartContacts')
+      throw (new Error())
+    }
     this.messages.forEach(message => {
       const contact = message.contact.replace(/\s/g, '_') + '_'
-      if (!contacts[contact + '_Chars']) {
-        contacts[contact + 'Chars'] = 0
-        contacts[contact + 'Messages'] = 0
+      if (!this.#contacts[contact + '_Chars']) {
+        this.#contacts[contact + 'Chars'] = 0
+        this.#contacts[contact + 'Messages'] = 0
       }
     })
     console.log('Chart contacts crated')
+  }
 
+  /**
+   * Creates the chart data by day
+   */
+  #setMessagesForChartByDay () {
     this.messages.forEach(message => {
       const contact = message.contact.replace(/\s/g, '_') + '_'
-      if (!this.chartData.find(m => m.date.getTime() === message.dateChart.getTime())) {
-        const data = { date: message.dateChart, ...contacts }
+      const splitted = message.date.split(' ')
+      const date = splitted[0]
+
+      const i = this.chartDataByDay.findIndex(m => m.date === date)
+      if (i < 0) {
+        const data = {
+          date,
+          ...this.#contacts,
+        }
         data[contact + 'Chars'] = message.chars
         data[contact + 'Messages'] = 1
 
-        this.chartData.push(data)
+        this.chartDataByDay.push(data)
       } else {
-        const i = this.chartData.findIndex(m => m.date.getTime() === message.dateChart.getTime())
-        this.chartData[i][contact + 'Chars'] += message.chars
-        this.chartData[i][contact + 'Messages'] += 1
+        this.chartDataByDay[i][contact + 'Chars'] += message.chars
+        this.chartDataByDay[i][contact + 'Messages'] += 1
       }
     })
 
-    console.log('Chart data crated')
+    console.log('Chart by day data crated')
+  }
+
+  /**
+   * Creates the chart data by month
+   */
+  #setMessagesForChartByMonth () {
+    const monthRegEx = /\d{2}\/(\d{2}\/\d{4})/
+    this.messages.forEach(message => {
+      const contact = message.contact.replace(/\s/g, '_') + '_'
+      const splitted = message.date.split(' ')
+      const date = splitted[0].replace(monthRegEx, '$1')
+
+      const i = this.chartDataByMonth.findIndex(m => m.date === date)
+      if (i < 0) {
+        const data = {
+          date,
+          ...this.#contacts,
+        }
+        data[contact + 'Chars'] = message.chars
+        data[contact + 'Messages'] = 1
+
+        this.chartDataByMonth.push(data)
+      } else {
+        this.chartDataByMonth[i][contact + 'Chars'] += message.chars
+        this.chartDataByMonth[i][contact + 'Messages'] += 1
+      }
+    })
+
+    console.log('Chart by month data crated')
+  }
+
+  #setMessagesForMonthlyChart () {
   }
 }
 

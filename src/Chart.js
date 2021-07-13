@@ -36,7 +36,7 @@ class Chart {
         const s = `series${key}`
         series += `const ${s} = chart.series.push(new am4charts.LineSeries());
       ${s}.dataFields.valueY = "${key}";
-      ${s}.dataFields.dateX = "date";
+      ${s}.dataFields.categoryX = "date";
       ${s}.strokeWidth = 2;
       ${s}.minBulletDistance = 10;
       ${s}.tooltipText = "${name}: {valueY} msgs, {${charsKey}} chars";

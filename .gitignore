@@ -84,3 +84,5 @@ dist
 /result.*
 _chat.txt
 /chart.*
+/chart-day.*
+/chart-month.*

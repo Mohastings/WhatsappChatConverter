@@ -26,10 +26,13 @@
       chart.data = CHART_DATA
 
       // Create axes
-      const dateAxis = chart.xAxes.push(new am4charts.DateAxis());
+      const dateAxis = chart.xAxes.push(new am4charts.CategoryAxis());
+      dateAxis.dataFields.category = "date";
+      dateAxis.title.text = "Date";
       dateAxis.renderer.minGridDistance = 50;
 
       const valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
+      valueAxis.title.text = "Messages";
 
       // Add scrollbar
       chart.scrollbarX = new am4charts.XYChartScrollbar();
