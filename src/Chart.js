@@ -7,7 +7,6 @@ class Chart {
     this.#chartData = chartData
     this.#addChartData()
     this.#addSeries()
-    console.log('Chart html created')
   }
 
   /**

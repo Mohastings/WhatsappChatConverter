@@ -51,12 +51,10 @@ class File {
    */
   static saveJson (data, name) {
     fs.writeFileSync(name, JSON.stringify(data, null, 2))
-    console.log(`${name} saved`)
   }
 
   static saveHtml (html, name) {
     fs.writeFileSync(name, html)
-    console.log(`${name} saved`)
   }
 
   /**

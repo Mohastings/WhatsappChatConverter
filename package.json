@@ -22,6 +22,7 @@
     "@amcharts/amcharts4": "^4.10.20",
     "@amcharts/amcharts4-fonts": "^4.0.1",
     "@amcharts/amcharts4-geodata": "^4.1.21",
+    "cli-progress": "^3.9.0",
     "csv-stringify": "^5.6.2",
     "grapheme-splitter": "^1.0.4",
     "terminal-kit": "^2.1.6"
