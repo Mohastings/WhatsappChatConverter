@@ -1,5 +1,6 @@
-import { Format } from './Format.js'
+import { Contact } from './Contact.js'
 import { Message } from './Message.js'
+import { terminal } from './Terminal.js'
 /**
  * Whatsapp messages manipulation class
  */
@@ -30,12 +31,18 @@ class Whatsapp {
      * @type {Object[]}
      */
     this.chartDataByMonth = []
+    /**
+     * The list of messages formatted for the chart (yearly messages)
+     * @type {Object[]}
+     */
+    this.chartDataByYear = []
 
     this.#setBaseContent(file)
     this.#setMessages()
     this.#setChartContacts()
     this.#setMessagesForChartByDay()
     this.#setMessagesForChartByMonth()
+    this.#setMessagesForChartByYear()
   }
 
   /**
@@ -45,7 +52,7 @@ class Whatsapp {
   #setBaseContent (file) {
     // Replace all carriage returns by line breaks
     this.#content = file.content.replace(/\r\n/, '\n').replace(/\r/, '\n').split('\n')
-    console.log('Line breaks replaced')
+    terminal('\nLine breaks replaced')
   }
 
   /**
@@ -63,9 +70,10 @@ class Whatsapp {
         this.messages[i - 1] += `\n${message}`
       }
     }
-    console.log('Content array set')
+    terminal('\nContent array set')
 
-    const format = new Format()
+    const contact = new Contact()
+    const replacementsFileContent = []
 
     // Replace each entry by the Message instance and remove the null entries
     this.messages = this.messages
@@ -76,14 +84,31 @@ class Whatsapp {
         }
 
         const date = new Date(Date.UTC(split[3], split[2], split[1], split[4], split[5], split[6])).toLocaleString().replace(',', '')
-        const contact = format.replaceContact(format.cleanContact(split[7]))
+
+        let cont = Contact.clean(split[7])
         const content = split[8]
 
-        return new Message(date, contact, content)
+        const replaced = contact.replace(cont)
+
+        if (!replaced && !replacementsFileContent.find(r => r === cont)) {
+          replacementsFileContent.push(cont)
+        } else if (replaced) {
+          cont = replaced
+        }
+
+        return new Message(date, cont, content)
       })
       .filter(messsage => messsage != null)
 
-    console.log('Messages created')
+    if (replacementsFileContent.length > 0) {
+      Contact.saveReplacements(replacementsFileContent)
+    }
+
+    if (this.messages.length === 0) {
+      throw new Error('Failed to read messages from the file')
+    } else {
+      terminal('\nMessages created')
+    }
   }
 
   /**
@@ -161,7 +186,33 @@ class Whatsapp {
     console.log('Chart by month data crated')
   }
 
-  #setMessagesForMonthlyChart () {
+  /**
+   * Creates the chart data by month
+   */
+   #setMessagesForChartByYear () {
+    const yearRegEx = /\d{2}\/\d{2}\/(\d{4})/
+    this.messages.forEach(message => {
+      const contact = message.contact.replace(/\s/g, '_') + '_'
+      const splitted = message.date.split(' ')
+      const date = splitted[0].replace(yearRegEx, '$1')
+
+      const i = this.chartDataByYear.findIndex(m => m.date === date)
+      if (i < 0) {
+        const data = {
+          date,
+          ...this.#contacts,
+        }
+        data[contact + 'Chars'] = message.chars
+        data[contact + 'Messages'] = 1
+
+        this.chartDataByYear.push(data)
+      } else {
+        this.chartDataByYear[i][contact + 'Chars'] += message.chars
+        this.chartDataByYear[i][contact + 'Messages'] += 1
+      }
+    })
+
+    console.log('Chart by month data crated')
   }
 }
 

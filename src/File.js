@@ -1,5 +1,7 @@
 import fs from 'fs'
+import { terminal, Terminal } from './Terminal.js'
 import csvStringify from 'csv-stringify'
+
 /**
  * File manipulation class
  */
@@ -9,11 +11,37 @@ class File {
    * @param {string} filePath The chat export path
    */
   constructor (filePath) {
+    try {
+      /**
+       * @type string
+       */
+      this.content = fs.readFileSync(filePath).toString()
+      this.loaded = true
+      terminal(`\n${filePath} loaded\n`)
+    } catch (error) {
+      terminal.red(`\nError loading file:\n${error}\n`)
+      return { loaded: false }
+    }
+  }
+
+  /**
+   * Load a new file
+   * First try to load witht the default name and if not found, display the interface to load a file
+   * @returns {Promise<File|Error>}
+   */
+  static async getChatFile () {
     /**
-     * @type string
+     * @type {string[]}
      */
-    this.content = fs.readFileSync(filePath).toString()
-    console.log(`${filePath} loaded`)
+    const content = fs.readdirSync('./')
+    let filePath = content.find(dir => dir === '_chat.txt')
+
+    if (filePath) {
+      terminal('\n_chat.txt found')
+    } else {
+      filePath = await Terminal.loadFile()
+    }
+    return (new File(filePath))
   }
 
   /**

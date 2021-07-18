@@ -1,4 +1,3 @@
-import { Format } from './Format.js'
 import GraphemeSplitter from 'grapheme-splitter'
 
 /**

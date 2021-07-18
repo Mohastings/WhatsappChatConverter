@@ -45,6 +45,7 @@ class Chart {
       ${s}.tooltip.background.fillOpacity = 0.5;
       ${s}.tooltip.label.padding(12, 12, 12, 12);
       ${s}.name = "${name}";
+      ${s}.tensionX = 0.7
       chart.scrollbarX.series.push(${s});
 
       `
