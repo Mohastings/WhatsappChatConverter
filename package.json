@@ -1,27 +1,22 @@
 {
-  "name": "whatsapp-to-excel",
+  "name": "whatsapp-chat-converter",
   "version": "0.0.1",
-  "description": "Whatsapp chat export to multiple formats (XLSX, CSV and JSON)",
+  "description": "Converts Whatsapp chat export to multiple formats (CSV, JSON and HTML formatted charts) for analysis",
   "license": "MIT",
-  "repository": "https://github.com//whatsapp-to-excel",
+  "repository": "https://github.com/russoedu/WhatsappChatConverter.git",
   "author": {
     "name": "Eduardo Russo",
     "email": "russoedu@gmail.com"
   },
   "engines": {
-    "node": ">=6"
+    "node": ">=14"
   },
   "scripts": {
-    "start": "node ./src/index.js",
-    "doc": "jsdoc -c ./jsdoc.json --readme ./readme.md -p & start \"\" \"file://%cd:\\=/%/docs/index.html\"",
-    "test": "nyc --reporter=cobertura --reporter=html mocha --reporter-options configFile=report.json --reporter mocha-multi-reporters --retries 3 --timeout=0"
+    "start": "node ./src/index.js"
   },
   "main": "src/index.js",
   "type": "module",
   "dependencies": {
-    "@amcharts/amcharts4": "^4.10.20",
-    "@amcharts/amcharts4-fonts": "^4.0.1",
-    "@amcharts/amcharts4-geodata": "^4.1.21",
     "cli-progress": "^3.9.0",
     "csv-stringify": "^5.6.2",
     "grapheme-splitter": "^1.0.4",
@@ -35,27 +30,18 @@
     "@babel/plugin-proposal-private-methods": "^7.13.0",
     "@babel/plugin-proposal-private-property-in-object": "^7.14.0",
     "@babel/preset-env": "^7.14.2",
-    "chai": "^4.3.4",
     "eslint": "^7.26.0",
     "eslint-config-standard": "^16.0.2",
     "eslint-plugin-chai-expect": "^2.2.0",
     "eslint-plugin-chai-friendly": "^0.7.1",
     "eslint-plugin-import": "^2.22.1",
-    "eslint-plugin-node": "^11.1.0",
-    "jsdoc": "^3.6.7",
-    "mocha": "^8.4.0",
-    "mocha-junit-reporter": "^2.0.0",
-    "mocha-multi-reporters": "^1.5.1",
-    "nyc": "^15.1.0",
-    "sinon": "^10.0.0",
-    "sinon-chai": "^3.6.0",
-    "tui-jsdoc-template": "^1.2.2"
+    "eslint-plugin-node": "^11.1.0"
   },
   "keywords": [
     "whatsapp",
-    "excel",
     "csv",
     "conversion",
-    "chat"
+    "chat",
+    "chart"
   ]
 }

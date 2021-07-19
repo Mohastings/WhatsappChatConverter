@@ -1,6 +1,6 @@
 import { Contact } from './Contact.js'
 import { Message } from './Message.js'
-import { terminal, Terminal } from './Terminal.js'
+import { Progress } from './Progress.js'
 /**
  * Whatsapp messages manipulation class
  */
@@ -51,11 +51,9 @@ class Whatsapp {
    */
   #setBaseContent (file) {
     // Replace all carriage returns by line breaks
-    const progress = new Terminal()
-    terminal('\nReading file\n')
-    progress.setProgress(1)
+    const progress = new Progress('Reading file', 1)
     this.#content = file.content.replace(/\r\n/, '\n').replace(/\r/, '\n').split('\n')
-    progress.endProgress()
+    progress.update()
   }
 
   /**
@@ -64,11 +62,9 @@ class Whatsapp {
   #setMessages () {
     // Read each line and put them as a string entry. If the line does not match
     // the messageRegEx, includes in the previus entry with a line break
-    const contentSettingProgress = new Terminal()
-    terminal('Setting chat content\n')
-    contentSettingProgress.setProgress(this.#content.length)
+    const chatContentProgress = new Progress('Setting chat content', this.#content.length)
     for (let i = 0; i < this.#content.length; i++) {
-      contentSettingProgress.updateProgress()
+      chatContentProgress.update()
       const message = this.#content[i]
       if (message.match(this.#messageRegEx)) {
         this.messages.push(message)
@@ -77,18 +73,15 @@ class Whatsapp {
         this.messages[i - 1] += `\n${message}`
       }
     }
-    contentSettingProgress.endProgress()
 
     const contact = new Contact()
     const replacementsFileContent = []
 
     // Replace each entry by the Message instance and remove the null entries
-    const contentCleaningProgress = new Terminal()
-    terminal('Splitting date, contact and message\n')
-    contentCleaningProgress.setProgress(this.messages.length)
+    const contentCleaningProgress = new Progress('Splitting date, contact and message', this.messages.length)
     this.messages = this.messages
       .map(m => {
-        contentCleaningProgress.updateProgress()
+        contentCleaningProgress.update()
         const split = this.#contentSplitRegex.exec(m)
         if (!split) {
           return null
@@ -110,8 +103,6 @@ class Whatsapp {
       })
       .filter(messsage => messsage != null)
 
-    contentCleaningProgress.endProgress()
-
     if (replacementsFileContent.length > 0) {
       Contact.saveReplacements(replacementsFileContent)
     }
@@ -129,29 +120,24 @@ class Whatsapp {
       console.log('#setMessages must be executed before #setChartContacts')
       throw (new Error())
     }
-    const progress = new Terminal()
-    terminal('Creating contacts list\n')
-    progress.setProgress(this.messages.length)
+    const progress = new Progress('Reading messages and creating contacts list', this.messages.length)
     this.messages.forEach(message => {
-      progress.updateProgress()
+      progress.update()
       const contact = message.contact.replace(/\s/g, '_') + '_'
       if (!this.#contacts[contact + '_Chars']) {
         this.#contacts[contact + 'Chars'] = 0
         this.#contacts[contact + 'Messages'] = 0
       }
     })
-    progress.endProgress()
   }
 
   /**
    * Creates the chart data by day
    */
   #setMessagesForChartByDay () {
-    const progress = new Terminal()
-    terminal('Creating chart by day\n')
-    progress.setProgress(this.messages.length)
+    const progress = new Progress('Creating chart by day', this.messages.length)
     this.messages.forEach(message => {
-      progress.updateProgress()
+      progress.update()
       const contact = message.contact.replace(/\s/g, '_') + '_'
       const splitted = message.date.split(' ')
       const date = splitted[0]
@@ -171,19 +157,16 @@ class Whatsapp {
         this.chartDataByDay[i][contact + 'Messages'] += 1
       }
     })
-    progress.endProgress()
   }
 
   /**
    * Creates the chart data by month
    */
   #setMessagesForChartByMonth () {
-    const progress = new Terminal()
-    terminal('Creating chart by month\n')
-    progress.setProgress(this.messages.length)
+    const progress = new Progress('Creating chart by month', this.messages.length)
     const monthRegEx = /\d{2}\/(\d{2}\/\d{4})/
     this.messages.forEach(message => {
-      progress.updateProgress()
+      progress.update()
       const contact = message.contact.replace(/\s/g, '_') + '_'
       const splitted = message.date.split(' ')
       const date = splitted[0].replace(monthRegEx, '$1')
@@ -203,19 +186,16 @@ class Whatsapp {
         this.chartDataByMonth[i][contact + 'Messages'] += 1
       }
     })
-    progress.endProgress()
   }
 
   /**
    * Creates the chart data by month
    */
    #setMessagesForChartByYear () {
-    const progress = new Terminal()
-    terminal('Creating chart by year\n')
-    progress.setProgress(this.messages.length)
+    const progress = new Progress('Creating chart by year', this.messages.length)
     const yearRegEx = /\d{2}\/\d{2}\/(\d{4})/
     this.messages.forEach(message => {
-      progress.updateProgress()
+      progress.update()
       const contact = message.contact.replace(/\s/g, '_') + '_'
       const splitted = message.date.split(' ')
       const date = splitted[0].replace(yearRegEx, '$1')
@@ -235,7 +215,6 @@ class Whatsapp {
         this.chartDataByYear[i][contact + 'Messages'] += 1
       }
     })
-    progress.endProgress()
   }
 }
 

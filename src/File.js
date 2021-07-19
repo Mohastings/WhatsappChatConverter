@@ -82,7 +82,6 @@ class File {
           reject(err)
         } else {
           fs.writeFileSync('result.csv', output)
-          console.log('result.csv saved')
           resolve(true)
         }
       })
