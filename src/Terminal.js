@@ -1,5 +1,6 @@
-import chalk from "chalk"
+import chalk from 'chalk'
 import fs from 'fs'
+import inquirer from 'inquirer'
 
 /**
  * Terminal Kit simplified class
@@ -10,17 +11,22 @@ export class Terminal {
    * @returns {Promise<string|error>}
    */
   static async getPath () {
-    console.log(chalk.blue.bold('_chat.txt not found. Please choose the chat export to continue:'))
-    const filesList = fs.readdirSync('.').filter(file => file.match(/.*?\.txt/))
-    console.log(filesList)
-    // try {
-    //   const input = await term.fileInput({ baseDir: './', autoCompleteMenu: true, autoCompleteHint: true })
-    //   term.processExit()
-    //   return input
-    // } catch (error) {
-    //   term.red.bold(`\nAn error occurred:\n${error}`)
-    //   term.processExit()
-    //   throw error
-    // }
+    console.log(chalk.blue.bold('_chat.txt not found'))
+    const choices = fs.readdirSync('.')// .filter(file => file.match(/.*?\.txt/))
+    const promptOptions = {
+      type: 'list',
+      name: 'file',
+      message: 'Please choose the chat export file to continue:',
+      choices,
+    }
+
+    return inquirer
+      .prompt(promptOptions)
+      .then(answers => {
+        return answers.file
+      })
+      .catch(error => {
+        chalk.red(error)
+      })
   }
 }
