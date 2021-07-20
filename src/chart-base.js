@@ -1,4 +1,4 @@
-<html>
+export const chartBase = `<html>
 
 <head>
   <title>Whatsapp chart</title>
@@ -57,4 +57,4 @@
   <div id="chartdiv"></div>
 </body>
 
-</html>
+</html>`

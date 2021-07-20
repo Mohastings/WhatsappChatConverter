@@ -1,9 +1,9 @@
-import fs from 'fs'
+import { chartBase } from './chart-base.js'
 
 class Chart {
   #chartData = null
   constructor (chartData) {
-    this.html = fs.readFileSync('./src/chart-base.html').toString()
+    this.html = chartBase
     this.#chartData = chartData
     this.#addChartData()
     this.#addSeries()

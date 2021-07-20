@@ -40,9 +40,13 @@ class Whatsapp {
     this.#setBaseContent(file)
     this.#setMessages()
     this.#setChartContacts()
+    const progress = new Progress('Creating charts', 3)
     this.#setMessagesForChartByDay()
+    progress.update()
     this.#setMessagesForChartByMonth()
+    progress.update()
     this.#setMessagesForChartByYear()
+    progress.update()
   }
 
   /**
@@ -135,9 +139,7 @@ class Whatsapp {
    * Creates the chart data by day
    */
   #setMessagesForChartByDay () {
-    const progress = new Progress('Creating chart by day', this.messages.length)
     this.messages.forEach(message => {
-      progress.update()
       const contact = message.contact.replace(/\s/g, '_') + '_'
       const splitted = message.date.split(' ')
       const date = splitted[0]
@@ -163,10 +165,8 @@ class Whatsapp {
    * Creates the chart data by month
    */
   #setMessagesForChartByMonth () {
-    const progress = new Progress('Creating chart by month', this.messages.length)
     const monthRegEx = /\d{2}\/(\d{2}\/\d{4})/
     this.messages.forEach(message => {
-      progress.update()
       const contact = message.contact.replace(/\s/g, '_') + '_'
       const splitted = message.date.split(' ')
       const date = splitted[0].replace(monthRegEx, '$1')
@@ -192,10 +192,8 @@ class Whatsapp {
    * Creates the chart data by month
    */
    #setMessagesForChartByYear () {
-    const progress = new Progress('Creating chart by year', this.messages.length)
     const yearRegEx = /\d{2}\/\d{2}\/(\d{4})/
     this.messages.forEach(message => {
-      progress.update()
       const contact = message.contact.replace(/\s/g, '_') + '_'
       const splitted = message.date.split(' ')
       const date = splitted[0].replace(yearRegEx, '$1')

@@ -40,7 +40,7 @@ class File {
     if (filePath) {
       console.log(chalk.bold('_chat.txt found'))
     } else {
-      filePath = await Terminal.loadFile()
+      filePath = await Terminal.getPath()
     }
     return (new File(filePath))
   }
