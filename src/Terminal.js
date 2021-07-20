@@ -1,6 +1,4 @@
-import terminalKit from 'terminal-kit'
-
-export const terminal = terminalKit.terminal
+export const terminal = console.log
 /**
  * Terminal Kit simplified class
  */
@@ -10,15 +8,15 @@ export class Terminal {
    * @returns {Promise<string|error>}
    */
   static async loadFile () {
-    terminal.blue.bold('\n_chat.txt not found. Please choose tha chat export to continue (press tab to display the auto-complete): ')
-    try {
-      const input = await terminal.fileInput({ baseDir: './', autoCompleteMenu: true, autoCompleteHint: true })
-      terminal.processExit()
-      return input
-    } catch (error) {
-      terminal.red.bold(`\nAn error occurred:\n${error}`)
-      terminal.processExit()
-      throw error
-    }
+    // term.blue.bold('\n_chat.txt not found. Please choose tha chat export to continue (press tab to display the auto-complete): ')
+    // try {
+    //   const input = await term.fileInput({ baseDir: './', autoCompleteMenu: true, autoCompleteHint: true })
+    //   term.processExit()
+    //   return input
+    // } catch (error) {
+    //   term.red.bold(`\nAn error occurred:\n${error}`)
+    //   term.processExit()
+    //   throw error
+    // }
   }
 }

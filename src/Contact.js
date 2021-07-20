@@ -1,5 +1,5 @@
+import chalk from 'chalk'
 import fs from 'fs'
-import { terminal } from './Terminal.js'
 
 /**
  * Contact cleanup class
@@ -19,7 +19,7 @@ export class Contact {
 
        this.#replacement = JSON.parse(file)
      } catch (error) {
-       terminal.red('\nNo replacement file found. A replacement file will be created with the contacts so you can make replacements in the results and join phone numbers.')
+       console.log(chalk.red('No replacement file found. A replacement file will be created with the contacts so you can make replacements in the results and join phone numbers.'))
      }
    }
 
@@ -82,6 +82,6 @@ export class Contact {
 
      fs.writeFileSync('./replacement.json', result)
 
-     terminal.green('\n"replacement.json" file created.\nTo change the names on the results, update the "replacement" data on each contact and execute the app again.')
+     console.log(chalk.green('"replacement.json" file created.\nTo change the names on the results, update the "replacement" data on each contact and execute the app again.'))
    }
 }

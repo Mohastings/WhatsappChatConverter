@@ -1,6 +1,7 @@
 import fs from 'fs'
-import { terminal, Terminal } from './Terminal.js'
+import { Terminal } from './Terminal.js'
 import csvStringify from 'csv-stringify'
+import chalk from 'chalk'
 
 /**
  * File manipulation class
@@ -17,9 +18,9 @@ class File {
        */
       this.content = fs.readFileSync(filePath).toString()
       this.loaded = true
-      terminal(`\n${filePath} loaded\n`)
+      console.log(chalk.bold(`${filePath} loaded`))
     } catch (error) {
-      terminal.red(`\nError loading file:\n${error}\n`)
+      console.log(chalk.red(`Error loading file:\n${error}`))
       return { loaded: false }
     }
   }
@@ -37,7 +38,7 @@ class File {
     let filePath = content.find(dir => dir === '_chat.txt')
 
     if (filePath) {
-      terminal('\n_chat.txt found')
+      console.log(chalk.bold('_chat.txt found'))
     } else {
       filePath = await Terminal.loadFile()
     }

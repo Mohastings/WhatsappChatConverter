@@ -2,8 +2,9 @@ import { Whatsapp } from './Whatsapp.js'
 import { File } from './File.js'
 import { Chart } from './Chart.js'
 import { Progress } from './Progress.js'
+import chalk from 'chalk'
 
-async function execute () {
+async function WhatsappChatConverter () {
   const file = await File.getChatFile()
 
   if (file.loaded) {
@@ -34,9 +35,9 @@ async function execute () {
       await File.saveCsv(whatsapp.messages)
       csvProgress.update()
     } catch (error) {
-      terminal.red.bold(`\nAn error occurred:\n${error}\n`)
+      console.log(chalk.red.bold(`An error occurred:\n${error}`))
     }
   }
 }
 
-execute()
+WhatsappChatConverter()

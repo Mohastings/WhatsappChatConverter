@@ -80,6 +80,8 @@ dist
 
 # DynamoDB Local files
 .dynamodb/
+
+# App created files
 /replacement.json
 /result.*
 _chat.txt
@@ -87,3 +89,5 @@ _chat.txt
 /chart-day.*
 /chart-month.*
 /chart-year.*
+build
+WhatsappChatConverter-*
