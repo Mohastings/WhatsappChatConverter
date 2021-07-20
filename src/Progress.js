@@ -1,7 +1,5 @@
-import terminalKit from 'terminal-kit'
 import cliProgress from 'cli-progress'
 
-// const terminal = terminalKit.terminal
 
 export class Progress {
   #bar

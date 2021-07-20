@@ -1,11 +1,6 @@
-# whatsapp-to-excel
+# WhatsappChatConverter
 
-> Whatsapp chat export to multiple formats - Excel, CSV and JSON
-
-[![Package Version](https://img.shields.io/npm/v/whatsapp-to-excel.svg?style=flat-square)](https://www.npmjs.com/package/whatsapp-to-excel)
-[![Downloads Status](https://img.shields.io/npm/dm/whatsapp-to-excel.svg?style=flat-square)](https://npm-stat.com/charts.html?package=whatsapp-to-excel&from=2016-04-01)
-[![Build Status: Linux](https://img.shields.io/travis//whatsapp-to-excel/master.svg?style=flat-square)](https://travis-ci.org//whatsapp-to-excel)
-[![Coverage Status](https://img.shields.io/codecov/c/github//whatsapp-to-excel/master.svg?style=flat-square)](https://codecov.io/gh//whatsapp-to-excel)
+> Converts Whatsapp chat export to multiple formats (CSV, JSON and HTML formatted charts) for analysis
 
 ## Why
 
