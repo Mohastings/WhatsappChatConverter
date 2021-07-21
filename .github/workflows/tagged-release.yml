@@ -1,0 +1,37 @@
+---
+name: "tagged-release"
+
+on:
+  push:
+    tags:
+      - "v*"
+jobs:
+  build:
+    name: Build binaries
+    runs-on: windows-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+            node-version: "16"
+      - name: NPM install
+        run: npm install
+      - name: Build
+        run: npm run build
+  release:
+    name: CReate release
+    runs-on: windows-latest
+    steps:
+        - name: Create build
+          uses: "marvinpinto/action-automatic-releases@latest"
+          with:
+            repo_token: "${{ secrets.GITHUB_TOKEN }}"
+            automatic_release_tag: "Git tag"
+            prerelease: false
+            title: "Release title"
+            files: |
+              WhatsappChatConverter-linux
+              WhatsappChatConverter-macos
+              WhatsappChatConverter-win.exe
