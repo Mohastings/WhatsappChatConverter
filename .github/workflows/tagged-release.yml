@@ -29,14 +29,11 @@ jobs:
           release_name: WhatsappChatConverter ${{ github.ref }}
           draft: false
           prerelease: false
-      - name: Release binaries
-      - run: |
-          set -x
-          assets=()
-          for asset in ./WhatsappChatConverter-*; do
-            assets+=("-a" "$asset")
-          done
-          tag_name="${GITHUB_REF##*/}"
-          hub release create "${assets[@]}" -m "$tag_name" "$tag_name"
+      - name: Upload the artifacts
+        uses: skx/github-action-publish-binaries@master
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          # releaseId: ${{ steps.create_release.outputs.upload_url }}
+          args: 'WhatsappChatConverter-*'
+      
