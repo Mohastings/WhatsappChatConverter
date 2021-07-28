@@ -1,6 +1,5 @@
 import cliProgress from 'cli-progress'
 
-
 export class Progress {
   #bar
   #current
