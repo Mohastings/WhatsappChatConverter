@@ -3,6 +3,7 @@ import { Terminal } from './Terminal.js'
 import csvStringify from 'csv-stringify'
 import chalk from 'chalk'
 
+const folder = './WhatsappConversion/'
 /**
  * File manipulation class
  */
@@ -12,6 +13,11 @@ class File {
    * @param {string} filePath The chat export path
    */
   constructor (filePath) {
+    try {
+      fs.mkdirSync(folder)
+    } catch (error) {
+      // Folder already exists
+    }
     try {
       /**
        * @type string
@@ -51,11 +57,11 @@ class File {
    * @param {string} name
    */
   static saveJson (data, name) {
-    fs.writeFileSync(name, JSON.stringify(data, null, 2))
+    fs.writeFileSync(folder + name, JSON.stringify(data, null, 2))
   }
 
   static saveHtml (html, name) {
-    fs.writeFileSync(name, html)
+    fs.writeFileSync(folder + name, html)
   }
 
   /**
@@ -82,7 +88,7 @@ class File {
           console.log(err)
           reject(err)
         } else {
-          fs.writeFileSync('result.csv', output)
+          fs.writeFileSync(folder + 'result.csv', output)
           resolve(true)
         }
       })

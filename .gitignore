@@ -90,4 +90,5 @@ _chat.txt
 /chart-month.*
 /chart-year.*
 build
-WhatsappChatConverter-*
+WhatsappChatConverter*
+WhatsappConversion

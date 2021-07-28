@@ -1,6 +1,11 @@
 import { Contact } from './Contact.js'
 import { Message } from './Message.js'
 import { Progress } from './Progress.js'
+
+const dateFormat = {
+  DAY_MONTH_YEAR: 0,
+  MONTH_DAY_YEAR: 1,
+}
 /**
  * Whatsapp messages manipulation class
  */
@@ -9,6 +14,7 @@ class Whatsapp {
   #messageRegEx = /(\[\d{2}\/\d{2}\/\d{4},\s\d{2}:\d{2}:\d{2}\])\s/gm
   #contentSplitRegex = /\[(\d{2})\/(\d{2})\/(\d{4}),\s(\d{2}):(\d{2}):(\d{2})\]\s(.+?):\s([\s\S]+)/
   #contacts = {}
+  #dateFormat = dateFormat.DAY_MONTH_YEAR
 
   /**
    * @param {import('./File.js').File} file file The exported file
@@ -61,6 +67,21 @@ class Whatsapp {
   }
 
   /**
+   * Read all messages to try and identify the date format
+   * Changes this.#dateFormat to 'm' if any date has the second element bigger than 12,
+   * meaning the day is the second element, not the first
+   */
+  #setDateFormat () {
+    for (const message of this.messages) {
+      const split = this.#contentSplitRegex.exec(message)
+      if (!!split && split[2] > 12) {
+        this.#dateFormat = dateFormat.MONTH_DAY_YEAR
+        break
+      }
+    }
+  }
+
+  /**
    * Set each message as a string as a Message entry
    */
   #setMessages () {
@@ -81,6 +102,8 @@ class Whatsapp {
     const contact = new Contact()
     const replacementsFileContent = []
 
+    this.#setDateFormat()
+
     // Replace each entry by the Message instance and remove the null entries
     const contentCleaningProgress = new Progress('Splitting date, contact and message', this.messages.length)
     this.messages = this.messages
@@ -91,7 +114,9 @@ class Whatsapp {
           return null
         }
 
-        const date = new Date(Date.UTC(split[3], split[2], split[1], split[4], split[5], split[6])).toLocaleString().replace(',', '')
+        const date = this.#dateFormat === dateFormat.DAY_MONTH_YEAR
+          ? `${split[1]}/${split[2]}/${split[3]} ${split[4]}:${split[5]}:${split[6]}`
+          : `${split[2]}/${split[1]}/${split[3]} ${split[4]}:${split[5]}:${split[6]}`
 
         let cont = Contact.clean(split[7])
         const content = split[8]
