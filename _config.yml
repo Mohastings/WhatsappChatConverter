@@ -1,7 +1,1 @@
 theme: jekyll-theme-cayman
-title: Whatsapp Chat Converter
-description: Converts Whatsapp chat export to multiple formats (CSV, JSON and HTML formatted charts) for analysis
-github:
-  Linux: https://github.com/russoedu/WhatsappChatConverter/releases/latest/download/WhatsappChatConverter-linux
-  MacOs: https://github.com/russoedu/WhatsappChatConverter/releases/latest/download/WhatsappChatConverter-macos
-  Windows: https://github.com/russoedu/WhatsappChatConverter/releases/latest/download/WhatsappChatConverter-win.exe
