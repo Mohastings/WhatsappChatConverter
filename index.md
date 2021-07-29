@@ -15,11 +15,14 @@ Download the app for your OS using the buttons on the top of the page and run th
 
 Double click on the app or execute on a terminal window.
 
-![execution example](https://github.com/russoedu/WhatsappChatConverter/blob/gh-pages/terminal.png?raw=true)
+![execution example Windows](https://github.com/russoedu/WhatsappChatConverter/blob/gh-pages/terminal.png?raw=true)
+
+![execution example Mac OS](https://github.com/russoedu/WhatsappChatConverter/blob/gh-pages/terminal-mac.png?raw=true)
 
 The app will try to find a "_chat.txt" file and if none is found it will ask for the file presenting a list of files in the same folder.
 
 When the chat is found all the process will run and the result files will be saved in the `WhatsappConversion` folder.
+
 ## Exports
 
 ⚠️ All export dates are formatted as dd/mm/yyyy!
