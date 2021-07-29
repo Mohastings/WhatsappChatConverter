@@ -2,6 +2,11 @@
 
 > Converts Whatsapp chat export to multiple formats (CSV, JSON and HTML formatted charts) for analysis
 
+
+ <a href="https://github.com/russoedu/WhatsappChatConverter/releases/latest/download/WhatsappChatConverter-linux" class="btn" style="display: inline-block; color: white; background-color: #159957; background-image: linear-gradient(224deg, #155799, #159957); border-color: #000; padding:0.75rem 1rem; border-radius: 0.3rem;">Download Linux App</a>
+<a href="https://github.com/russoedu/WhatsappChatConverter/releases/latest/download/WhatsappChatConverter-macos" class="btn" style="display: inline-block; color: white; background-color: #159957; background-image: linear-gradient(224deg, #155799, #159957); border-color: #000; padding:0.75rem 1rem; border-radius: 0.3rem;">Download macOS App</a>
+<a href="https://github.com/russoedu/WhatsappChatConverter/releases/latest/download/WhatsappChatConverter-win.exe" class="btn" style="display: inline-block; color: white; background-color: #159957; background-image: linear-gradient(224deg, #155799, #159957); border-color: #000; padding:0.75rem 1rem; border-radius: 0.3rem;">Download Windows App</a>
+
 ## Why
 
 If you want to analyse the full content of a Whatsapp chat export,  WhatsappChatConverter can help you by generating multiple exports of the content.
@@ -9,12 +14,19 @@ The app will generate multiple export formats so you can read the data in multip
 
 ## Installation
 
-Download the files from the [releases page](https://github.com/russoedu/WhatsappChatConverter/releases) and run the executable in the same folder you have your chat export.
+Download the app for your OS using the buttons on the top of the page and run the executable in the same folder you have your chat export.
 
 ## Usage
 
 Double click on the app or execute on a terminal window.
 
+![execution example Windows](https://github.com/russoedu/WhatsappChatConverter/blob/gh-pages/terminal.png?raw=true)
+
+![execution example Mac OS](https://github.com/russoedu/WhatsappChatConverter/blob/gh-pages/terminal-mac.png?raw=true)
+
+The app will try to find a "_chat.txt" file and if none is found it will ask for the file presenting a list of files in the same folder.
+
+When the chat is found all the process will run and the result files will be saved in the `WhatsappConversion` folder.
 ## Exports
 
 ⚠️ All export dates are formatted as dd/mm/yyyy!
