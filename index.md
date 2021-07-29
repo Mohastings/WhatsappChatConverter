@@ -1,5 +1,5 @@
 <a href="https://github.com/russoedu/WhatsappChatConverter/releases/latest/download/WhatsappChatConverter-linux" class="btn" style="display: inline-block; color: white; background-color: #159957; background-image: linear-gradient(224deg, #155799, #159957); border-color: #000;">Download Linux App</a>
-<a href="https://github.com/russoedu/WhatsappChatConverter/releases/latest/download/WhatsappChatConverter-macos" class="btn" style="display: inline-block; color: white; background-color: #159957; background-image: linear-gradient(224deg, #155799, #159957); border-color: #000;">Download Mac Os App</a>
+<a href="https://github.com/russoedu/WhatsappChatConverter/releases/latest/download/WhatsappChatConverter-macos" class="btn" style="display: inline-block; color: white; background-color: #159957; background-image: linear-gradient(224deg, #155799, #159957); border-color: #000;">Download macOS App</a>
 <a href="https://github.com/russoedu/WhatsappChatConverter/releases/latest/download/WhatsappChatConverter-win.exe" class="btn" style="display: inline-block; color: white; background-color: #159957; background-image: linear-gradient(224deg, #155799, #159957); border-color: #000;">Download Windows App</a>
 
 ## Why
