@@ -1,15 +1,6 @@
-<style>
-.dark {
-  display: inline-block;
-  color: white;
-  background-color: #159957;
-  background-image: linear-gradient(224deg, #155799, #159957);
-  border-color: #000;
-}
-</style>
-<a href="https://github.com/russoedu/WhatsappChatConverter/releases/latest/download/WhatsappChatConverter-linux" class="btn dark">Download Linux App</a>
-<a href="https://github.com/russoedu/WhatsappChatConverter/releases/latest/download/WhatsappChatConverter-macos" class="btn dark">Download Mac Os App</a>
-<a href="https://github.com/russoedu/WhatsappChatConverter/releases/latest/download/WhatsappChatConverter-win.exe" class="btn dark">Download Windows App</a>
+<a href="https://github.com/russoedu/WhatsappChatConverter/releases/latest/download/WhatsappChatConverter-linux" class="btn" style="display: inline-block; color: white; background-color: #159957; background-image: linear-gradient(224deg, #155799, #159957); border-color: #000;">Download Linux App</a>
+<a href="https://github.com/russoedu/WhatsappChatConverter/releases/latest/download/WhatsappChatConverter-macos" class="btn" style="display: inline-block; color: white; background-color: #159957; background-image: linear-gradient(224deg, #155799, #159957); border-color: #000;">Download Mac Os App</a>
+<a href="https://github.com/russoedu/WhatsappChatConverter/releases/latest/download/WhatsappChatConverter-win.exe" class="btn" style="display: inline-block; color: white; background-color: #159957; background-image: linear-gradient(224deg, #155799, #159957); border-color: #000;">Download Windows App</a>
 
 ## Why
 
