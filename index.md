@@ -1,6 +1,7 @@
-# WhatsappChatConverter
 
-> Converts Whatsapp chat export to multiple formats (CSV, JSON and HTML formatted charts) for analysis
+<a href="https://github.com/russoedu/WhatsappChatConverter/releases/latest/download/WhatsappChatConverter-linux" class="btn">Download Linux App</a>
+<a href="https://github.com/russoedu/WhatsappChatConverter/releases/latest/download/WhatsappChatConverter-macos" class="btn">Download Mac Os App</a>
+<a href="https://github.com/russoedu/WhatsappChatConverter/releases/latest/download/WhatsappChatConverter-win.exe" class="btn">Download Windows App</a>
 
 ## Why
 
