@@ -1,4 +1,4 @@
-theme: jekyll-theme-dinky
+theme: jekyll-theme-cayman
 title: Whatsapp Chat Converter
 description: Converts Whatsapp chat export to multiple formats (CSV, JSON and HTML formatted charts) for analysis
 github:
