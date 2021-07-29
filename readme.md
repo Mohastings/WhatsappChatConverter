@@ -2,10 +2,11 @@
 
 > Converts Whatsapp chat export to multiple formats (CSV, JSON and HTML formatted charts) for analysis
 
+[Download Linux App](https://github.com/russoedu/WhatsappChatConverter/releases/latest/download/WhatsappChatConverter-linux)
+ 
+[Download macOS App](https://github.com/russoedu/WhatsappChatConverter/releases/latest/download/WhatsappChatConverter-macos)
 
- <a href="https://github.com/russoedu/WhatsappChatConverter/releases/latest/download/WhatsappChatConverter-linux" class="btn" style="display: inline-block; color: white; background-color: #159957; background-image: linear-gradient(224deg, #155799, #159957); border-color: #000; padding:0.75rem 1rem; border-radius: 0.3rem;">Download Linux App</a>
-<a href="https://github.com/russoedu/WhatsappChatConverter/releases/latest/download/WhatsappChatConverter-macos" class="btn" style="display: inline-block; color: white; background-color: #159957; background-image: linear-gradient(224deg, #155799, #159957); border-color: #000; padding:0.75rem 1rem; border-radius: 0.3rem;">Download macOS App</a>
-<a href="https://github.com/russoedu/WhatsappChatConverter/releases/latest/download/WhatsappChatConverter-win.exe" class="btn" style="display: inline-block; color: white; background-color: #159957; background-image: linear-gradient(224deg, #155799, #159957); border-color: #000; padding:0.75rem 1rem; border-radius: 0.3rem;">Download Windows App</a>
+[Download Windows App](https://github.com/russoedu/WhatsappChatConverter/releases/latest/download/WhatsappChatConverter-win.exe)
 
 ## Why
 
@@ -27,6 +28,7 @@ Double click on the app or execute on a terminal window.
 The app will try to find a "_chat.txt" file and if none is found it will ask for the file presenting a list of files in the same folder.
 
 When the chat is found all the process will run and the result files will be saved in the `WhatsappConversion` folder.
+
 ## Exports
 
 ⚠️ All export dates are formatted as dd/mm/yyyy!
