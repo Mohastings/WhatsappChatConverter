@@ -9,12 +9,17 @@ The app will generate multiple export formats so you can read the data in multip
 
 ## Installation
 
-Download the files from the [releases page](https://github.com/russoedu/WhatsappChatConverter/releases) and run the executable in the same folder you have your chat export.
+Download the app for your OS using the buttons on the top of the page and run the executable in the same folder you have your chat export.
 
 ## Usage
 
 Double click on the app or execute on a terminal window.
 
+![execution example](https://github.com/russoedu/WhatsappChatConverter/blob/gh-pages/terminal.png?raw=true)
+
+The app will try to find a "_chat.txt" file and if none is found it will ask for the file presenting a list of files in the same folder.
+
+When the chat is found all the process will run and the result files will be saved in the `WhatsappConversion` folder.
 ## Exports
 
 ⚠️ All export dates are formatted as dd/mm/yyyy!
