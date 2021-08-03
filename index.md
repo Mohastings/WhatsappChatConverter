@@ -15,11 +15,15 @@ Download the app for your OS using the buttons on the top of the page and run th
 
 Double click on the app or execute on a terminal window.
 
-![execution example Windows](https://github.com/russoedu/WhatsappChatConverter/blob/gh-pages/terminal.png?raw=true)
+![execution example Windows](https://github.com/russoedu/WhatsappChatConverter/blob/gh-pages/windows-execution.png?raw=true)
 
 ![execution example Mac OS](https://github.com/russoedu/WhatsappChatConverter/blob/gh-pages/terminal-mac.png?raw=true)
 
-The app will try to find a "_chat.txt" file and if none is found it will ask for the file presenting a list of files in the same folder.
+The app will try to find a "_chat.txt" file.
+
+If "_chat.txt" is not found you'll be presented the option to select a zip or a txt (from the files in the app folder).
+
+![selection example Windows](https://github.com/russoedu/WhatsappChatConverter/blob/gh-pages/selection.png?raw=true)
 
 When the chat is found all the process will run and the result files will be saved in the `WhatsappConversion` folder.
 
@@ -183,6 +187,41 @@ A chart summarising each month with the count of messages and chars per person.
 A chart summarising each year with the count of messages and chars per person.
 
 ![chart-year.html](https://github.com/russoedu/WhatsappChatConverter/blob/gh-pages/chart-year.png?raw=true)
+
+## Contact replacement
+
+You can replace the contacts names by changing the file `replacement.json` that will be created in the app folder.
+
+All contacts found in the chat will be included and you can, for instance, change phone number for people's real names to make it easier to analyse the chat.
+
+```
+[
+    {
+        "original": "+44 07425-98989",
+        "replacement": "John Doe"
+    },
+    {
+        "original": "+55 11 8956-5452",
+        "replacement": "Mary Jane"
+    },
+    {
+        "original": "Paul",
+        "replacement": "Paul Roberts"
+    },
+    {
+        "original": "Mary Jane",
+        "replacement": "Mary Jane"
+    },
+    {
+        "original": "John Doe",
+        "replacement": "John Doe"
+    }
+]
+
+```
+
+Change the contento of each "replacement" and run the app again to have the updated version with the replacements.
+
 
 ## License
 
