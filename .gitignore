@@ -93,3 +93,5 @@ build
 WhatsappChatConverter*
 WhatsappConversion
 out
+*.zip
+*.txt

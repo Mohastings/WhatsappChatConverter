@@ -12,11 +12,11 @@ export class Terminal {
    */
   static async getPath () {
     console.log(chalk.blue.bold('_chat.txt not found'))
-    const choices = fs.readdirSync('.')// .filter(file => file.match(/.*?\.txt/))
+    const choices = fs.readdirSync('./').filter(file => file.match(/.*?(\.txt|\.zip)/))
     const promptOptions = {
       type: 'list',
       name: 'file',
-      message: 'Please choose the chat export file to continue:',
+      message: 'Please choose the chat export file (.txt) or package (.zip) to continue:',
       choices,
     }
 

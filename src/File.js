@@ -2,6 +2,7 @@ import fs from 'fs'
 import { Terminal } from './Terminal.js'
 import csvStringify from 'csv-stringify'
 import chalk from 'chalk'
+import AdmZip from 'adm-zip'
 
 const folder = './WhatsappConversion/'
 /**
@@ -11,24 +12,44 @@ class File {
   /**
    * Create a file intance
    * @param {string} filePath The chat export path
+   * @param {boolean} isZip Flag for zip files
    */
-  constructor (filePath) {
+  constructor (filePath, isZip = false) {
     try {
       fs.mkdirSync(folder)
     } catch (error) {
       // Folder already exists
     }
-    try {
-      /**
-       * @type string
-       */
-      this.content = fs.readFileSync(filePath).toString()
-      this.loaded = true
-      console.log(chalk.bold(`${filePath} loaded`))
-    } catch (error) {
-      console.log(chalk.red(`Error loading file:\n${error}`))
-      return { loaded: false }
+    if (isZip) {
+      const zip = new AdmZip(filePath)
+      const zipEntries = zip.getEntries() // an array of ZipEntry records
+
+      zipEntries.forEach(zipEntry => {
+        if (zipEntry.entryName === '_chat.txt') {
+          this.content = (zipEntry.getData().toString())
+        }
+      })
+      if (!this.content) {
+        console.log(chalk.red('Error loading file:\nNo "_chat.txt" found in the zip'))
+        return { loaded: false }
+      }
+      // outputs the content of some_folder/my_file.txt
+      // extracts the specified file to the specified location
+      // zip.extractEntryTo(/* entry name */ '../chat.txt', /* target path */ '.', /* maintainEntryPath */ false, /* overwrite */ true)
+      // extracts everything
+    } else {
+      try {
+        /**
+         * @type string
+         */
+        this.content = fs.readFileSync(filePath).toString()
+      } catch (error) {
+        console.log(chalk.red(`Error loading file:\n${error}`))
+        return { loaded: false }
+      }
     }
+    this.loaded = true
+    console.log(chalk.green.bold(`${filePath} loaded`))
   }
 
   /**
@@ -48,7 +69,7 @@ class File {
     } else {
       filePath = await Terminal.getPath()
     }
-    return (new File(filePath))
+    return (new File(filePath, !!filePath.match(/.*?\.zip/)))
   }
 
   /**
